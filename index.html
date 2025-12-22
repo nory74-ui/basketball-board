@@ -23,13 +23,33 @@
             box-sizing: border-box;
         }
 
+        html {
+            height: 100%;
+            overflow: hidden; /* HTMLレベルでもスクロール禁止 */
+        }
+
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            
+            /* --- iOS Safari 修正箇所 --- */
+            /* フォールバックとしての100vh */
             height: 100vh;
+            /* モダンブラウザ(iOS Safari含む)向けの動的高さ指定 */
+            height: 100dvh;
+            
+            /* 画面位置を固定してスクロールやバーの影響を最小化 */
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* ------------------------- */
+
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -59,6 +79,7 @@
             min-height: 56px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             z-index: 10;
+            flex-shrink: 0; /* ヘッダーが縮まないように */
         }
 
         .title-group {
@@ -133,6 +154,7 @@
             background-color: #111827;
             padding: 8px;
             overflow: hidden;
+            width: 100%; /* 幅を明示 */
         }
 
         #canvas-container {
@@ -194,6 +216,7 @@
             padding-bottom: calc(8px + env(safe-area-inset-bottom));
             box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
             z-index: 10;
+            flex-shrink: 0; /* フッターが縮まないように */
         }
 
         .controls-container {
